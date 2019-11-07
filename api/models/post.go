@@ -100,7 +100,7 @@ func (p *Post) Update(db *gorm.DB, id uint64) (*Post, error) {
 	var err error
 
 	db = db.Debug().Model(&Post{}).Where("id = ?", id).Take(&Post{}).UpdateColumns(
-		map[string]inteface{}{
+		map[string]interface{}{
 			"title": p.Title,
 			"content": p.Content,
 			"updated_at": time.Now(),
