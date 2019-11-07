@@ -132,7 +132,7 @@ func (u *User) Update(db *gorm.DB, id uint32) (*User, error) {
 
 	if err = u.BeforeSave(); err != nil {
 		log.Fatal(err)
-
+	}
 	if db = db.Debug().Model(&User{}).Where("id = ?", id).Take(&User{}).UpdateColumns(
 		map[string]interface{}{
 			"password":  u.Password,
@@ -142,7 +142,6 @@ func (u *User) Update(db *gorm.DB, id uint32) (*User, error) {
 		},
 	); db.Error != nil {
 		return &User{}, db.Error
-
 	}
 
 	if err = db.Debug().Model(&User{}).Where("id = ?", id).Take(&u).Error; err != nil {
@@ -152,7 +151,7 @@ func (u *User) Update(db *gorm.DB, id uint32) (*User, error) {
 	return u, err
 }
 
-func (u *User) Delete(db *gorm.DB, id uint32) (int64, error) {
+func (u *User) Delete(db *gorm.DB, uid uint32) (int64, error) {
 	db = db.Debug().Model(&User{}).Where("id = ?", uid).Take(&User{}).Delete(&User{})
 	if db.Error != nil {
 		return 0, db.Error

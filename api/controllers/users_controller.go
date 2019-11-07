@@ -108,8 +108,8 @@ func (s *Server) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	updatedUser, err := user.Update(s.DB, uint32(uid))
 	if err != nil {
-		formaterror := formaterror.FormatError(err.Error())
-		responses.ERROR(w, http.StatusInternalServerError, formaterror)
+		formattedError := formaterror.FormatError(err.Error())
+		responses.ERROR(w, http.StatusInternalServerError, formattedError)
 		return
 	}
 
